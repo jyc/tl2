@@ -1,0 +1,15 @@
+# The project name. Used to name library files, the top binary, and the docdir.
+project = "tl2"
+# The ocamlfind package name.
+package = "tl2"
+# A list of ocamlfind packages required by this project.
+requires = [
+    "menhirLib"
+
+    "ppx_deriving.std"
+]
+# A list of additional flags to pass to ocamlbuild.
+flags = [
+    "-use-menhir"
+    #"-menhir 'menhir --table'"
+]

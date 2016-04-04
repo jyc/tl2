@@ -1,0 +1,3 @@
+# begin mk _tags
+true: package(menhirLib), package(ppx_deriving.std)
+# end

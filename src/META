@@ -1,0 +1,5 @@
+# begin mk META
+requires = "menhirLib ppx_deriving.std"
+archive(byte) = "tl2.cma"
+archive(native) = "tl2.cmxa"
+# end
