@@ -1,5 +1,25 @@
+open Printf
+
+type 'a result = [`Ok of 'a | `Error of string]
+
+let show pos =
+  let open Lexing in
+  let file =
+    if pos.pos_fname = "" then ""
+    else pos.pos_fname ^ ":"
+  in
+  let inside =
+    if pos.pos_lnum = -1 then ""
+    else sprintf "%d:%d" pos.pos_lnum (pos.pos_cnum - pos.pos_bol + 1)
+  in
+  sprintf "%s%s" file inside
+
 let parse lexbuf =
-  Tl2Parser.main Tl2Lexer.read lexbuf
+  try
+    `Ok (Tl2Parser.main Tl2Lexer.read lexbuf)
+  with
+  | Tl2Parser.Error -> `Error (sprintf "Parse error: %s" (show lexbuf.Lexing.lex_curr_p))
+  | Tl2Lexer.LexError s -> `Error (Printf.sprintf "Lex error: %s" s)
 
 let parse_file filename =
   let open Lexing in

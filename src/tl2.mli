@@ -1,8 +1,10 @@
 include module type of Tl2Ast
 
-val parse : Lexing.lexbuf -> pos t
-val parse_file : string -> pos t
-val parse_string : string -> pos t
+type 'a result = [`Ok of 'a | `Error of string]
+
+val parse : Lexing.lexbuf -> pos t result
+val parse_file : string -> pos t result
+val parse_string : string -> pos t result
 
 val to_inline_code : 'a expr -> string option * string
 val to_bin : 'a expr -> binop * 'a expr * 'a expr
