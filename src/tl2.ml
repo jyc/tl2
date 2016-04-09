@@ -18,8 +18,10 @@ let parse lexbuf =
   try
     `Ok (Tl2Parser.main Tl2Lexer.read lexbuf)
   with
-  | Tl2Parser.Error -> `Error (sprintf "Parse error: %s" (show lexbuf.Lexing.lex_curr_p))
-  | Tl2Lexer.LexError s -> `Error (Printf.sprintf "Lex error: %s" s)
+  | Tl2Parser.Error ->
+    `Error (sprintf "%s: Syntax error." (show lexbuf.Lexing.lex_curr_p))
+  | Tl2Lexer.LexError s ->
+    `Error (Printf.sprintf "%s: Lexical error: %s" s (show lexbuf.Lexing.lex_curr_p))
 
 let parse_file filename =
   let open Lexing in
